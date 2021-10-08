@@ -3,6 +3,7 @@
 
 #include "lcd_module.h"
 #include "led_module.h"
+#include "soil_moisture_sensor_module.h"
 
 #define BACKGROUND_CONTROLLER_PIN (3)
 #define RESET_BUTTON_RESET_STATE (HIGH)
@@ -36,6 +37,7 @@ class StateMachine{
 
     LCDModule lcd_module;
     LEDModule led_module;
+    SoilMoistureSensorModule soil_moisture_sensor_module;
 
     unsigned int state;
     unsigned int state_reset;
@@ -61,6 +63,7 @@ public:
         // Sets all modules to initial state/ all modules need to have reset function
         this->lcd_module.reset();
         this->led_module.reset();
+        this->soil_moisture_sensor_module.reset();
 
         this->state_reset = SS_RESET_ALL_MODULES;
         this->state = SS_IDLE_STATE;
