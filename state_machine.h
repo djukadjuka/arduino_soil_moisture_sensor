@@ -22,6 +22,9 @@
 
 #define SS_IDLE_STATE (100)
 
+#define SS_SENSOR_READING (200)
+#define S_SENSOR_READING_DELAY (201)
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // LCD STRINGS
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,6 +35,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 #define MS_RESET_ALL_STATES_DELAY                   (2000)
 #define MS_RESET_ALL_STATES_LCD_PRINT_DELAY         (3500)
+#define MS_SENSOR_READING_DELAY                     (1000)
 
 class StateMachine{
 
@@ -123,7 +127,16 @@ public:
 
         // Initial state that sets master key flag when turning on the device
         if(SS_IDLE_STATE == this->state){
-            // this->change_state(S_SOME_STATE);
+            this->change_state(SS_SENSOR_READING);
+        }
+        else if(SS_SENSOR_READING == this->state){
+            this->lcd_module.print_string(this->soil_moisture_sensor_module.get_mapped_sensor_reading_string());
+            this->change_state(S_SENSOR_READING_DELAY);
+        }
+        else if(S_SENSOR_READING_DELAY == this->state){
+            if(current_millis - this->last_update_millis >= MS_SENSOR_READING_DELAY){
+                this->change_state(SS_SENSOR_READING);
+            }
         }
     }
 };
