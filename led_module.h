@@ -13,6 +13,11 @@ class LEDModule{
 
 public:
 
+    void init_pins(){
+        // LED configuration
+        pinMode(LED_PROG_PIN, OUTPUT);
+    }
+
     void set_last_inner_update_time(unsigned long time){
         // Last updated time only for leds - used for toggling led diodes
         this->last_inner_update_time = time;

@@ -51,6 +51,15 @@ public:
         this->last_update_millis = millis();
     }
 
+    void init_pins(){  
+        // SETUP LCD
+        // Set display type as 16 char, 2 rows
+        lcd.begin(LCD_COLS, LCD_ROWS);
+        // Print on first row
+        lcd.setCursor(0, 0);
+        lcd.clear();
+    }
+
     void print_string(String string){
         // Prints any string if there is enough space for LCD_ROWS rows of LCD_COLS characters
         // dont use with any other strings ...

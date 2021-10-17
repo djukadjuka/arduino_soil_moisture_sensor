@@ -16,11 +16,12 @@ public:
     
     int get_sensor_reading(){
         int output_value= analogRead(SENSOR_PIN);
+        Serial.println(output_value);
         return output_value;
     }
 
     int get_mapped_sensor_reading(){
-        return map(get_sensor_reading(), 550, 0, 0, 100);
+        return map(get_sensor_reading(), 1023, 0, 0, 100);
     }
 
     String get_sensor_reading_string(){
